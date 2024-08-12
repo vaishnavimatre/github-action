@@ -40,8 +40,10 @@ jobs:
       - name: Build code and create docker images
         run: mvn clean install docker:build
 
-      - name : Build code and create docker images
-        run: mvn clean install docker:build
+      - name : Re tag the docker image
+        run: docker tag  dnyanyog.org/patient-service:latest vaish864/patient-service:latest
+
+
    
       - name: Push docker images
         run: |
