@@ -33,8 +33,7 @@ jobs:
         run: mvn org.owasp:dependency-check-maven:check
         
       - name: Build code and create docker images
-        run: mvn clean install docker:build -Dimage.registry=${{secrets.CONTAINER_REGISTRY_URL}} -Dimage.tag=$GITHUB_REF_NAME
-
+        run: mvn clean install docker:build
    
 
       - name: Push Docker images
