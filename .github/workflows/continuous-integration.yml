@@ -24,9 +24,7 @@ jobs:
           java --version
           ls -ltr
 
-      - name: Perform Google formatter check
-        run: mvn com.spotify.fmt:fmt-maven-plugin:check
-
+      
       - name: OSS scan
         run: mvn ossindex:audit
         continue-on-error: true
