@@ -1,0 +1,39 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+          
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Check setup
+        run: |
+          java --version
+          ls -ltr
+
+      - name: Perform Google formatter check
+        run: mvn com.spotify.fmt:fmt-maven-plugin:check
+
+      - name: OSS scan
+        run: mvn ossindex:audit
+        continue-on-error: true
+
+      - name: OWASP scan
+        if: false
+        run: mvn org.owasp:dependency-check-maven:check
+
+      - name: Build code and create Docker image
+        run: mvn clean install io.fabric8:docker-maven-plugin:build
