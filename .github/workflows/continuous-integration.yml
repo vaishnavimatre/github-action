@@ -34,10 +34,14 @@ jobs:
         run: mvn org.owasp:dependency-check-maven:check
         
       - name: Build code and create docker images
-        run: mvn clean install docker:build
+        run: mvn clean install docker:build -Dimage.registry=${{secrets.CONTAINER_REGISTRY_URL}} -Dimage.tag=$GITHUB_REF_NAME
 
       -  name: Log in to Github Docker Registry
          uses: docker/login-action@v2
          with:
-           username: vaish864
+           username: ${{secrets.DOCKER_REGISTRY_USER}}
            passowrd: ${{secrets.DOCKER_REGISTRY_PAT}}
+
+
+      - name: push docker images
+        run: docker push ${{secrets.CONTAINER_REGISTRY_URL}}/patient-service:latest:$GITHUB_REF_NAME
