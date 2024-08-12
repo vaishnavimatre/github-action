@@ -3,6 +3,11 @@ name: Java CI with Maven
 on:
   push:
     branches:
+      - '**'
+    tags:
+      - '**'
+  pull_request:
+    branches:
       - main
 
 jobs:
@@ -35,6 +40,7 @@ jobs:
       - name: Build code and create docker images
         run: mvn clean install docker:build
    
-
-      - name: Push Docker images
-        run: docker push ${{secrets.CONTAINER_REGISTRY_URL}}/$CURRENT_FOLDER_NAME:$GITHUB_REF_NAME
+      - name: Push docker images
+        run: |
+         CURRENT_FOLDER_NAME=$(basename $(pwd))
+         docker push ${{secrets.CONTAINER_REGISTRY_URL}}/$CURRENT_FOLDER_NAME:$GITHUB_REF_NAME
