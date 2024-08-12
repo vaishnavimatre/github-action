@@ -39,6 +39,9 @@ jobs:
         
       - name: Build code and create docker images
         run: mvn clean install docker:build
+
+      - name : Build code and create docker images
+        run: mvn clean install docker:build
    
       - name: Push docker images
         run: |
