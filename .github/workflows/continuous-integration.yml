@@ -32,6 +32,6 @@ jobs:
       - name: OWASP scan
         if: false
         run: mvn org.owasp:dependency-check-maven:check
-
-      - name: Build code and create Docker image
-        run: mvn clean install io.fabric8:docker-maven-plugin:build
+        
+      - name: Build code and create docker images
+        run: mvn clean install docker:build
