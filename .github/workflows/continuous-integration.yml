@@ -50,8 +50,7 @@ jobs:
           username: ${{ secrets.DOCKER_REGISTRY_USER }}
           password: ${{ secrets.DOCKER_REGISTRY_PAT }}
 
-      - name: Debug image name
-        run: echo "${{ secrets.DOCKER_REGISTRY_USER }}/patient-service:latest"
+  
 
       - name: Push docker image
         run: docker push "${{ secrets.DOCKER_REGISTRY_URL}}/patient-service:latest"
