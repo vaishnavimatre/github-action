@@ -43,9 +43,11 @@ jobs:
       - name : Re tag the docker image
         run: docker tag  dnyanyog.org/patient-service:latest vaish864/patient-service:latest
 
-
+      - name: Log in to GitHub Docker Registry
+        uses: docker/login-action@v2
+        with:
+         username: ${{secrets.DOCKER_REGISTRY_USER}}
+         password: ${{secrets.DOCKER_REGISTRY_PAT}}
    
       - name: Push docker images
-        run: |
-         CURRENT_FOLDER_NAME=$(basename $(pwd))
-         docker push ${{secrets.CONTAINER_REGISTRY_URL}}/$CURRENT_FOLDER_NAME:$GITHUB_REF_NAME
+        run: docker push ${{secrets.CONTAINER_REGISTRY_URL}}/$CURRENT_FOLDER_NAME:$GITHUB_REF_NAME
