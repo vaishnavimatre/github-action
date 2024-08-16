@@ -53,4 +53,4 @@ jobs:
   
 
       - name: Push docker image
-        run: docker push "${{ secrets.DOCKER_REGISTRY_URL}}/patient-service:latest"
+        run: docker push "${{ secrets.DOCKER_REGISTRY_USER}}/patient-service:latest"
